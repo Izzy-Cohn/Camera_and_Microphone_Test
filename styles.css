@@ -1,0 +1,364 @@
+/* Add global box-sizing */
+* {
+    box-sizing: border-box;
+}
+
+/* General Styles */
+        
+body {
+    align-items: center;
+    justify-self: center;
+    font-family: 'Rubik', sans-serif;
+    text-align: center;
+    margin: 10px;
+    background-color: #f6f8fa;
+    width: 75%;
+    height: 75%;
+    max-width: 1100px;
+    max-height: 720px;
+}
+
+/* Highest level grid container for all media elements */
+#mediaContainer {
+    display: grid;
+    grid-template-areas: 
+        "cameraFeed cameraFeed cameraFeed"
+        "audioSelector videoSelector resolutionSelector"
+        "successMessage successMessage successMessage";
+    grid-template-columns: 1fr 1fr 1fr; /* Three columns */
+    grid-template-rows: auto; /* Three rows */
+    justify-self: center;
+    justify-content: center; /* Space between elements inside a flex container */
+    /* align-items: center; Align items horizontally */
+    width: 75%;
+    min-height: 60%;
+    background-color: white;
+    border-radius: 10px;
+    /* height: 100%; */
+}
+
+/* Flex container for video and audioVisualizer; Nested inside mediaContainer */
+#cameraFeed {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Align camera feed and camera icon */
+    grid-column: 1 / span 3; /* Span all three columns */
+    width: 100%;      /* Reduce width restriction to allow video to expand */
+    justify-self: center;
+    object-fit: cover;
+    min-height: 400px; /* Add minimum height to ensure space for button */
+    background-color: #738a9f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#cameraFeed::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px; /* Adjust as needed */
+    background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0,0,0,0));
+    pointer-events: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Flex container for start message */
+
+#startMessageContainer {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure button is above video */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Perfect centering*/
+}
+
+#clickMessage {
+    font-family: 'Rubik', sans-serif;
+    font-size: 17px;
+    font-weight: 450;
+    color: white;
+    position: relative; /* Ensure text stays above video */
+    z-index: 11; /* Higher than container */
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#ifDisabledMessage {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: white;
+    position: relative; /* Ensure text stays above video */
+    z-index: 11; /* Higher than container */
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Flex container for Start button; Nested inside mediaContainer */
+#buttonContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure button is above video */
+    top: 75%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Perfect centering*/
+    width: 60px;
+    height: 60px;
+    border: 2px solid #d4351c;
+    border-radius: 50%; /* Perfect circle */
+}
+
+#runTestButton {
+    font-family: 'Rubik', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    width: 53px; /* Set equal width and height */
+    height: 53px;
+    border: 2px;
+    border-radius: 50%; /* Perfect circle */
+    background-color: #d4351c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative; /* Ensure button stays above video */
+    z-index: 11; /* Higher than container */
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Flex item for video feed; Nested inside cameraFeed */
+video {
+    position: absolute; /* Position the video absolutely */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the entire container */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+    transform: scaleX(-1); /* Keep flipped horizontally */
+}
+
+/* Flex container for volumeMeter and microphone icon; Nested inside mediaContainer */
+#audioVisualizer {
+    position: absolute;
+    width: 90%;
+    bottom: 10px;
+    /* left: 20px; */
+    /* padding-left: 10px; */
+    display: flex;
+    flex-direction: row; /* Change to row for horizontal layout */
+    align-items: center; /* Align microphone icon and volume meter */
+    gap: 10px; /* Space between microphone icon and volume meter */
+}
+
+/* Flex item for volume meter; Nested inside audioVisualizer */
+#volumeMeter {
+    width: 100%;      /* Increased width for horizontal orientation */
+    height: 10px;      /* Reduced height */
+    background-color: white; /* Fallback for non-canvas visualization */
+    border-radius: 15px;
+}
+
+.selectorContainer {
+    display: grid;
+    grid-template-areas: 
+        "icon label"
+        "selector selector";
+    grid-template-columns: 15px 90%; /* Two columns */
+    grid-template-rows: auto auto; /* Two rows */
+    justify-content: left;
+    max-width: 100%; /* Ensure container does not exceed parent width */
+    width: 100%;     /* Make container take full width of parent */
+    box-sizing: border-box;
+    margin-top: 5%;   /* Reduce top margin for small screens */
+    margin-bottom: 10%;
+    padding-left: 10%; /* Reduce padding to prevent overflow */
+    padding-right: 10%;
+    /* padding-right: 10%; */
+}
+
+.selectorContainer svg {
+    grid-area: icon;
+    height: 14px;
+    width: 14px;
+    /* grid-column: 1;
+    grid-row: 1; */
+    /* justify-self: right; */
+    /* margin-left: 20%; */
+}
+
+.selectorContainer label {
+    grid-area: label;
+    /* grid-column: 2;
+    grid-row: 1; */
+    /* justify-self: start; */
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333333;
+    text-align: left;
+    margin-left: 2%;
+    /* padding-top: 1%; */
+}
+
+.selectorContainer select {
+    grid-area: selector;
+    /* grid-column: 1 / span 2;
+    grid-row: 2; */
+    /* justify-self: center; */
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    /* padding: 3%;     Use fixed padding to control element size */
+    width: 100%;      /* Expand select elements to full width of container */
+    max-width: 100%;
+    height:100%;
+    max-height: 100%;  /* Prevent them from exceeding container width */
+    box-sizing: border-box;
+    margin: 7px 0;    /* Adjust margins if necessary */
+    border-radius: 3px;
+    border: solid 1px #333333;
+    background-color: white;
+    color: #2d2d2d;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+#audioSelector {
+    grid-area: audioSelector;
+    /* grid-column: 1;
+    grid-row: 2; */
+    /* margin-top: 10px; */
+    /* gap: 10px; Space between elements */
+}
+
+#videoSelector {
+    grid-area: videoSelector;
+    /* grid-column: 2;
+    grid-row: 2; */
+    /* margin-top: 10px; */
+    /* gap: 10px; Space between elements */
+}
+
+/* Flex container for resolution selector; Nested inside mediaContainer */
+#resolutionSelector {
+    grid-area: resolutionSelector;
+    /* grid-column: 3;
+    grid-row: 2; */
+    /* margin-top: 10px; */
+    /* gap: 10px; Space between elements */
+}
+
+/* Flex container for success message; Nested inside mediaContainer */
+.successMessageContainer {
+    display: flex;
+    flex-direction: row;;
+    grid-area: successMessage;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    text-align: center;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#successMessage svg {
+    height: 16px;
+    width: 16px;
+    margin-right: 7px;
+}
+
+#successMessage p {
+    margin: 0;
+}
+
+#runTestButton:hover {
+    background-color: gray;
+}
+
+select:hover, button:hover{
+    background-color: #ddd;
+}
+
+.hidden {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    body {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    #mediaContainer {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically on small screens */
+        gap: 10px; /* Add some space between each item */
+        width: 100%;
+    }
+
+    #successMessage {
+        padding: 10px 10px;
+    }
+
+
+
+    #successMessage svg {
+        height: 30px;
+        width: 30px;
+        margin-left: 20px;
+        margin-bottom: 7px;
+    }
+
+    #audioSelector, #videoSelector, #resolutionSelector {
+        width: 100%; /* Full width for each select element */
+    }
+
+    .selectorContainer {
+        width: 100%; /* Ensure the selector container takes up the full width */
+        padding-left: 5%;
+        padding-right: 5%;
+        margin-top: 3%;
+    }
+}
+
+
+

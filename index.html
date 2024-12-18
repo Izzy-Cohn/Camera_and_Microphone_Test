@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera and Microphone Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <!--Links from Google Fonts to access Rubik font family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <p id="infoText"></p>
+    
+    <div id="mediaContainer" class="gridContainer">
+    
+        <div id="cameraFeed" class="flexContainer">
+            <div id="startMessageContainer" class="flexContainer">
+                <p id="clickMessage">Click Start to begin the test</p>
+                <p id="ifDisabledMessage">If the Start button is disabled, make sure to allow access to your camera and microphone</p> 
+            </div>
+
+            <div id="buttonContainer" class="flexContainer">
+                <button id="runTestButton">Start</button>
+            </div>
+            <video id="videoElement" autoplay></video> 
+            <div id="audioVisualizer" class="flexContainer">
+                <svg id="microphoneIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="vuesax/linear/voice-square">
+                    <g id="voice-square">
+                    <g id="Group">
+                    <path id="Vector" d="M6 9.85986V14.1499" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="Vector_2" d="M9 8.42993V15.5699" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="Vector_3" d="M12 7V17" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="Vector_4" d="M15 8.42993V15.5699" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="Vector_5" d="M18 9.85986V14.1499" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <path id="Vector_6" d="M15 22C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    </g>
+                </svg>
+
+                <canvas id="volumeMeter"></canvas>
+            </div>
+        </div>
+
+        <div id="audioSelector" class="selectorContainer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <g id="vuesax/linear/microphone-2">
+                <g id="microphone-2">
+                <path id="Vector" d="M16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5C14.21 15.5 16 13.71 16 11.5Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_2" d="M4.3501 9.6499V11.3499C4.3501 15.5699 7.7801 18.9999 12.0001 18.9999C16.2201 18.9999 19.6501 15.5699 19.6501 11.3499V9.6499" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_3" d="M10.6101 6.43012C11.5101 6.10012 12.4901 6.10012 13.3901 6.43012" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_4" d="M11.2 8.55007C11.73 8.41007 12.28 8.41007 12.81 8.55007" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_5" d="M12 19V22" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </g>
+            </svg>
+            <label for="audioInputSelect">Microphone</label>
+            <select id="audioInputSelect"></select>
+        </div>     
+
+        <div id="videoSelector" class="selectorContainer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <g id="vuesax/linear/video">
+                <g id="video">
+                <path id="Vector" d="M6.21 20.4201C3.05 20.4201 2 18.3201 2 16.2101V7.79008C2 4.63008 3.05 3.58008 6.21 3.58008H12.53C15.69 3.58008 16.74 4.63008 16.74 7.79008V16.2101C16.74 19.3701 15.68 20.4201 12.53 20.4201H6.21Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_2" d="M16.74 15.1499V8.83989L19.52 6.88989C20.88 5.93989 22 6.51989 22 8.18989V15.8099C22 17.4799 20.88 18.0599 19.52 17.0999L16.74 15.1499Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_3" fill-rule="evenodd" clip-rule="evenodd" d="M11.5 11C10.6716 11 10 10.3284 10 9.5C10 8.67157 10.6716 8 11.5 8C12.3284 8 13 8.67157 13 9.5C13 10.3284 12.3284 11 11.5 11Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </g>
+            </svg>
+            <label for="videoInputSelect">Camera</label>
+            <select id="videoInputSelect"></select>
+        </div>
+
+        <div id="resolutionSelector" class="selectorContainer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <g id="vuesax/linear/video-square">
+                <g id="video-square">
+                <path id="Vector" d="M15 22C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_2" d="M9.1001 10.52C9.1001 8.60999 10.4501 7.83999 12.1001 8.78999L13.3801 9.52999L14.6601 10.27C16.3101 11.22 16.3101 12.78 14.6601 13.73L13.3801 14.47L12.1001 15.21C10.4501 16.16 9.1001 15.38 9.1001 13.48V12V10.52Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </g>
+            </svg>
+            <label for="resolutionSelect">Resolution</label>
+            <select id="resolutionSelect" >
+                <option value="320x180">320x180</option>
+                <option value="640x480">640x480 (SD)</option>
+                <option value="1280x720" selected>1280x720 (HD)</option>
+                <option value="1920x1080">1920x1080 (Full HD)</option>
+            </select> 
+        </div>
+        
+        <div id="successMessage" class="successMessageContainer hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <g id="vuesax/linear/task">
+                <g id="task">
+                <path id="Vector" d="M11 19.5H21" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_2" d="M11 12.5H21" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_3" d="M11 5.5H21" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_4" d="M3 5.5L4 6.5L7 3.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_5" d="M3 12.5L4 13.5L7 10.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_6" d="M3 19.5L4 20.5L7 17.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </g>
+            </svg>
+            <p>Success! Your camera and microphone are working!</p>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
