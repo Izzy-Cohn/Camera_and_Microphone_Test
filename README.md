@@ -18,7 +18,7 @@ This project is a **Media Device Test Application** designed to check the compat
 - **HTML5**: Provides the structure for the application interface.
 - **CSS3**: Ensures a responsive and visually appealing design.
 - **JavaScript (ES6+)**: Handles media device interactions using the `MediaDevices` API.
-- **Gulp**: Inlines CSS and JavaScript into the index.html file and minifies the resulting HTML for better performance; Best for use in applications that require embedding a single .html file (e.g., Squarespace).
+- **Gulp**: Inlines CSS and JavaScript into the `index.html` file and minifies the resulting HTML for better performance; Best for use in applications that require embedding a single .html file (e.g., Squarespace).
 - **Google Fonts**: Incorporates the `Rubik` font family for modern and clean typography.
 
 ## Getting Started
