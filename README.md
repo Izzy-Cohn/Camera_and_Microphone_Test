@@ -1,4 +1,4 @@
-# Camera_and_Microphone_Test
+# Camera and Microphone Test
 A sleek one-page application for testing your media devices, including your cameras and microphones
 
 
